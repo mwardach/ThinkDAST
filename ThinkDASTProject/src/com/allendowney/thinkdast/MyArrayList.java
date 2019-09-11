@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 /**
- * @author downey
+ * @author downey & Michael Wardach
  * @param <T>
  *
  */
@@ -44,8 +44,14 @@ public class MyArrayList<T> implements List<T> {
 
 	@Override
 	public boolean add(T element) {
-		// TODO: FILL THIS IN!
-		return false;
+		if (size >= array.length) {
+			T[] bigger = (T[]) new Object[array.length*2];
+			System.arraycopy(array, 0, bigger, 0, array.length);
+			array = bigger;
+		}
+		array[size] = element;
+		size++;
+		return true;
 	}
 
 	@Override
@@ -110,7 +116,11 @@ public class MyArrayList<T> implements List<T> {
 
 	@Override
 	public int indexOf(Object target) {
-		// TODO: FILL THIS IN!
+		for (int i = 0; i < size; i++) {
+			if (equals(array[i], target)) {
+				return i;
+			}
+		}
 		return -1;
 	}
 
@@ -181,8 +191,16 @@ public class MyArrayList<T> implements List<T> {
 
 	@Override
 	public T remove(int index) {
-		// TODO: FILL THIS IN!
-		return null;
+		if (index < size) {
+			T objectRemoved = array[index];
+			for (int i = index; index < size-1; size++) {
+				array[i] = array[i+1];
+			}
+			array[size-1] = null;
+			return objectRemoved;
+		} else {
+			throw new IndexOutOfBoundsException("Index out of bounds");
+		}
 	}
 
 	@Override
