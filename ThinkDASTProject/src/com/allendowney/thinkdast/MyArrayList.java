@@ -193,10 +193,11 @@ public class MyArrayList<T> implements List<T> {
 	public T remove(int index) {
 		if (index < size) {
 			T objectRemoved = array[index];
-			for (int i = index; index < size-1; size++) {
+			System.out.println(array[index]);
+			for (int i = index; i < size-1; i++) {
 				array[i] = array[i+1];
 			}
-			array[size-1] = null;
+			size--;
 			return objectRemoved;
 		} else {
 			throw new IndexOutOfBoundsException("Index out of bounds");
@@ -219,8 +220,16 @@ public class MyArrayList<T> implements List<T> {
 
 	@Override
 	public T set(int index, T element) {
-		// TODO: FILL THIS IN!
-		return null;
+		if (index >= size ) {
+			throw new IndexOutOfBoundsException("Index out of bounds");
+		}
+		else if (element == null) {
+			throw new NullPointerException("Attempted to add null element.");
+		} else {
+			T replacedElement = array[index];
+			array[index] = element;
+			return replacedElement;
+		}
 	}
 
 	@Override
